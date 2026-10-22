@@ -1,0 +1,25 @@
+//week07-4 batter.cpp 學習計畫simulation第三題
+//leetcode 1275. Find Winner on a Tic Tac Toe Game井字遊戲
+class Solution {
+public://大資料結構，裡面裝中資料結構，裡面裝小資料結構vector<int>move，裡面裝小資料結構int i,j
+    string tictactoe(vector<vector<int>>& moves) {
+        int a[3][3]={0};//用c語言陣列，模擬井字遊戲的3*3共9個格子，先放0
+        string result[3]={"Drew","A","B"};//結果的字母
+        int who=1;//現在論到誰who來下棋1:A,2:B
+        for(vector<int>move:moves){//迴圈，逐一處理中資料結構
+            int i=move[0],j=move[1];
+            a[i][j]=who;//現在論到誰who來下棋
+
+            if(a[i][0]==who && a[i][1]==who && a[i][2]==who) return result[who];
+            if(a[0][j]==who && a[1][j]==who && a[2][j]==who) return result[who];
+
+            if(a[0][0]==who && a[1][1]==who && a[2][2]==who)return result[who];//斜線左上右下
+            if(a[2][0]==who && a[1][1]==who && a[0][2]==who)return result[who];//斜線左下右上
+
+            if(who==1)who=2;
+            else who=1;
+        }
+        if(moves.size()==9)return "Draw";//最後離開迴圈沒有人得勝 就平手Draw(這是錯的)
+        else return "Pending";
+    }
+};
